@@ -1,10 +1,10 @@
-def merge_sort(list_):
+def mergesort(list_):
     if len(list_) == 1:
         return list_
 
     midpoint = len(list_) // 2
-    left = merge_sort(list_[:midpoint])
-    right = merge_sort(list_[midpoint:])
+    left = mergesort(list_[:midpoint])
+    right = mergesort(list_[midpoint:])
 
     return merge(left, right)
 
@@ -37,4 +37,4 @@ while thing:
     things.append(thing)
     thing = input("Input a thing: ")
 
-print(merge_sort(things))
+print(mergesort(things))
