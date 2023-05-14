@@ -1,18 +1,33 @@
+import math
+
+
+def sorting_number(n):
+    s_n = math.floor(math.log(n, 2) + 1)
+    return n * s_n - 2 ** s_n + 1
+
+
 def mergesort(list_):
-    if len(list_) == 1:
-        return list_
+    print(f"\nMaximum number of comparisons: {sorting_number(len(list_))}")
+    width = 1
+    n_comps = 0
 
-    midpoint = len(list_) // 2
-    left = mergesort(list_[:midpoint])
-    right = mergesort(list_[midpoint:])
+    while width <= len(list_):
+        width *= 2
+        for low in range(0, len(list_), width):
+            high = low + width
+            mid = (low + high) // 2
+            list_[low:high], n_comps = merge(list_[low:mid],
+                                             list_[mid:high],
+                                             n_comps)
 
-    return merge(left, right)
+    return list_
 
 
-def merge(left, right):
+def merge(left, right, n_comps):
     result = []
     while left and right:
-        if is_better_than(left[0], right[0]):
+        n_comps += 1
+        if is_better_than(left[0], right[0], n_comps):
             result.append((left.pop(0)))
         else:
             result.append((right.pop(0)))
@@ -21,11 +36,11 @@ def merge(left, right):
         result += left
     elif right:
         result += right
-    return result
+    return result, n_comps
 
 
-def is_better_than(thing1, thing2):
-    answer = input(f"Is {thing1} better than {thing2} (y/n)? ")
+def is_better_than(thing1, thing2, n_comps):
+    answer = input(f"{n_comps}: Is {thing1} better than {thing2} (y/n)? ")
     while answer not in ['y', 'n']:
         answer = input(f"Answer y/n: ")
     return answer == 'y'
