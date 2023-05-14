@@ -7,7 +7,8 @@ def sorting_number(n):
 
 
 def mergesort(list_):
-    print(f"\nMaximum number of comparisons: {sorting_number(len(list_))}")
+    print(f"\nMaximum number of comparisons for {len(list_)} items: "
+          f"{sorting_number(len(list_))}")
     width = 1
     n_comps = 0
 
